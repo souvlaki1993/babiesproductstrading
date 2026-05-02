@@ -9,15 +9,8 @@
     <link rel="stylesheet" href="common.css">
     <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
 
-    <!-- ✅ EmailJS NEW CDN (important fix) -->
+    <!-- EmailJS SDK (GitHub-safe CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-    <!-- ✅ Initialize EmailJS properly -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            emailjs.init("5WC7S7bVP6vg9YErN"); // YOUR PUBLIC KEY
-        });
-    </script>
 </head>
 
 <body>
@@ -68,11 +61,11 @@
 
         <section class="contact-section">
 
-            <!-- FORM -->
+            <!-- CONTACT FORM -->
             <div class="form-container">
                 <h3>Send Us a Message!</h3>
 
-                <form onsubmit="return sendEmail();">
+                <form id="contact-form">
                     <input type="text" id="name" placeholder="Your Name" required>
                     <input type="email" id="email" placeholder="Your Email" required>
                     <input type="text" id="subject" placeholder="Subject" required>
@@ -103,30 +96,39 @@
         <p>Created with care for parents seeking safe, reliable, and comforting baby essentials.</p>
     </footer>
 
-    <!-- ✅ EMAIL FUNCTION -->
+    <!-- EMAILJS LOGIC (FIXED FOR GITHUB PAGES) -->
     <script>
-        function sendEmail() {
+        document.addEventListener("DOMContentLoaded", function () {
 
-            const params = {
-                name: document.getElementById("name").value,
-                email: document.getElementById("email").value,
-                subject: document.getElementById("subject").value,
-                message: document.getElementById("message").value
-            };
+            // INIT EMAILJS
+            emailjs.init("5WC7S7bVP6vg9YErN");
 
-            emailjs.send("service_y6rtqbu", "template_xhjmeje")
-                .then(function (response) {
-                    console.log("SUCCESS:", response);
-                    alert("Message sent successfully!");
-                    document.querySelector("form").reset();
-                })
-                .catch(function (error) {
-                    console.log("FAILED:", error);
-                    alert("Failed to send message. Check console for error.");
-                });
+            const form = document.getElementById("contact-form");
 
-            return false;
-        }
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const params = {
+                    name: document.getElementById("name").value,
+                    email: document.getElementById("email").value,
+                    subject: document.getElementById("subject").value,
+                    message: document.getElementById("message").value
+                };
+
+                emailjs.send("service_y6rtqbu", "template_xhjmeje", params)
+                    .then(function (response) {
+                        console.log("SUCCESS:", response);
+                        alert("Message sent successfully!");
+                        form.reset();
+                    })
+                    .catch(function (error) {
+                        console.log("FAILED:", error);
+                        alert("Failed to send message. Check console.");
+                    });
+
+            });
+
+        });
     </script>
 
 </body>
