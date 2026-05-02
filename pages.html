@@ -114,7 +114,7 @@
                 message: document.getElementById("message").value
             };
 
-            emailjs.send("service_y6rtqbu", "template_xhjmeje", params)
+            emailjs.send("service_y6rtqbu", "template_xhjmeje")
                 .then(function (response) {
                     console.log("SUCCESS:", response);
                     alert("Message sent successfully!");
