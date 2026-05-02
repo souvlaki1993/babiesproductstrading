@@ -11,7 +11,7 @@
 <body>
 
     <header>
-        <div class="top-bar">Explore soft, practical, and parent-approved essentials for every stage.</div>
+        <div class="top-bar"></div>
 
         <nav class="navbar">
             <div class="logo-container">
@@ -118,6 +118,16 @@
             <div class="orders-modal-header">
                 <h2>My Orders</h2>
             </div>
+            
+            <div style="background: var(--surface); padding: 20px; border-radius: 16px; margin-bottom: 25px; border: 1px solid var(--border-soft);">
+                <h3 style="margin-bottom: 15px; font-size: 1.1rem; color: var(--dark-blue);">Track an Order</h3>
+                <form id="inline-tracking-form" onsubmit="simulateInlineTracking(event)" style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <input type="text" id="inlineOrderId" placeholder="Order ID (e.g. BBPT-12345)" required style="flex: 1; min-width: 200px; padding: 12px; border: 1px solid var(--border-soft); border-radius: 8px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);">
+                    <button type="submit" class="place-order-btn" style="padding: 12px 24px; border: none; font-size: 14px; cursor: pointer;">Track Status</button>
+                </form>
+                <div id="inline-tracking-result" style="display: none; margin-top: 25px; text-align: center;"></div>
+            </div>
+
             <div id="orders-list" class="orders-list"></div>
         </div>
     </div>
@@ -128,6 +138,92 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        function simulateInlineTracking(event) {
+            event.preventDefault();
+            const orderId = document.getElementById('inlineOrderId').value;
+            const resultDiv = document.getElementById('inline-tracking-result');
+
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = '<p style="color: var(--text-muted);">Fetching live status...</p>';
+
+            setTimeout(() => {
+                resultDiv.innerHTML = `
+                    <h4 style="color: var(--dark-blue); margin-bottom: 20px;">Status for: <strong>${orderId}</strong></h4>
+                    <div class="tracking-timeline">
+                        <div class="step active">
+                            <div class="step-icon">📋</div>
+                            <p>Placed</p>
+                        </div>
+                        <div class="step active">
+                            <div class="step-icon">📦</div>
+                            <p>Packed</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">🚚</div>
+                            <p>Shipped</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-icon">🏠</div>
+                            <p>Arrived</p>
+                        </div>
+                    </div>
+                `;
+            }, 800); 
+        }
+
+        function copyOrderId(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.textContent = "Order ID Copied!";
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.textContent = "Item added to cart!", 300);
+                }, 3000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
     <div id="toast" class="toast">Item added to cart!</div>
+
+    <footer class="site-footer">
+    <h3>Babies Baby Products Trading</h3>
+    <p>Safe, reliable, and comforting baby essentials.</p>
+
+    <div class="footer-links">
+        <a href="pages.html">About Us</a> |
+        <a href="#" onclick="openModal('terms'); return false;">Terms</a> |
+        <a href="#" onclick="openModal('privacy'); return false;">Privacy</a> |
+        <a href="pages.html#contact">Contact Us</a>
+    </div>
+</footer>
+
+
+<!-- FLOATING CONTACT BUTTON -->
+<div class="contact-float" onclick="openContact()">
+    💬 Contact Us
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeContact()">✖</span>
+
+        <h2>Contact Us</h2>
+
+        <form id="floating-contact-form">
+            <input type="text" id="float-name" placeholder="Your Name" required style="width:100%;padding:10px;margin:5px 0;">
+            <input type="email" id="float-email" placeholder="Your Email" required style="width:100%;padding:10px;margin:5px 0;">
+            <textarea id="float-message" placeholder="Message" required style="width:100%;padding:10px;margin:5px 0;"></textarea>
+
+            <button type="submit" style="padding:10px 15px;background:#F973A9;color:white;border:none;cursor:pointer;">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

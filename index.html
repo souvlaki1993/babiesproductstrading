@@ -1,87 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Babies Baby Products Trading</title>
-    <link rel="stylesheet" href="mainstyle.css">
-    <link rel="stylesheet" href="common.css">
-    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Babies Baby Products Trading</title>
+
+<link rel="stylesheet" href="mainstyle.css">
+<link rel="stylesheet" href="common.css">
+<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+
+<style>
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background: white;
+    margin: 60px auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    border-top: 6px solid var(--primary-blue);
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {transform: translateY(20px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+.close-modal {
+    float: right;
+    cursor: pointer;
+    font-size: 20px;
+    color: var(--pink);
+}
+
+/* ================= FOOTER ================= */
+
+.site-footer {
+    background: var(--dark-blue);
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: white;
+    margin: 0 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* ================= FLOATING CONTACT BUTTON ================= */
+
+.contact-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--pink);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 10000;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+</style>
+
 </head>
+
 <body>
 
-    <header>
-        <div class="top-bar">Soft essentials, thoughtful care, and everyday comfort for growing families.</div>
-        <nav class="navbar">
-            <div class="logo-container">
-                <div class="logo">
-                    <a href="index.html">Babies <span>Baby Products Trading</span></a>
-                </div>
-            </div>
-    
-            <div class="nav-links-container">
-                <ul class="nav-links">
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="pages.html">About</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                </ul>
-            </div>
-    
-            <div class="nav-buttons-container">
-                <div class="nav-buttons">
-                    <button class="nav-auth-btn" onclick="window.location.href='shop.html'">Browse Collection</button>
-                </div>
-            </div>
-        </nav>
-    </header>
+<header>
+    <div class="top-bar"></div>
 
-    <div class="hero">
-        <div class="hero-image">
-            <img src="images/baby-image.png" alt="Baby Image">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">Babies <span>Baby Products Trading</span></a>
         </div>
-        <div class="hero-content">
-            <div class="text-container">
-                <img src="images/bird-icon.png" alt="Bird Icon" class="bird-icon">
-                <div class="blue-box">Modern Essentials</div>
-                <div class="yellow-box">For Little Ones</div>
-            </div>
-        </div>
-        <div class="hero-circles">
-            <div class="circle circle1"></div>
-            <div class="circle circle2"></div>
-            <div class="circle circle3"></div>
-            <div class="circle circle4"></div>
-            <div class="circle circle5"></div>
-            <div class="circle circle6"></div>
-            <div class="circle circle7"></div>
-        </div>
-    </div>
-    
-    <div id="bagSidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h2>My Cart</h2>
-            <button class="close-btn" onclick="closeBag()">✖</button>
-        </div>
-        <div class="sidebar-content">
-            <p>Your cart is empty.</p>
-        </div>
+
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages.html">About</a></li>
+            <li><a href="shop.html">Shop</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-image">
+        <img src="images/baby-image.png">
     </div>
 
-    <div id="wishlistSidebar" class="sidebar">
-        <div class="sidebar-header">
-            <h2>Wishlist</h2>
-            <button class="close-btn" onclick="closeWishlist()">✖</button>
-        </div>
-        <div class="sidebar-content">
-            <p>Your wishlist is empty.</p>
+    <div class="hero-content">
+        <div class="text-container">
+            <div class="blue-box">Modern Essentials</div>
+            <div class="yellow-box">For Little Ones</div>
         </div>
     </div>
+</div>
 
-    <footer class="site-footer">
-        <h3>Babies Baby Products Trading</h3>
-        <p>Curated baby essentials designed to make everyday care feel calm, joyful, and dependable.</p>
-    </footer>
+<!-- FOOTER -->
+<footer class="site-footer">
+    <h3>Babies Baby Products Trading</h3>
+    <p>Safe, reliable, and comforting baby essentials.</p>
 
-    <script src="script.js"></script>
+    <div class="footer-links">
+        <a href="#" onclick="openModal('terms')">Terms</a>
+        <a href="#" onclick="openModal('privacy')">Privacy</a>
+        <a href="#" onclick="openContact()">Contact Us</a>
+    </div>
+</footer>
+
+<!-- FLOAT CONTACT BUTTON -->
+<div class="contact-float" onclick="openContact()">
+    💬 Contact Us
+</div>
+
+<!-- TERMS MODAL -->
+<div id="termsModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">✖</span>
+
+        <h2>Terms and Conditions</h2>
+
+        <p><strong>1. Introduction</strong><br>
+        Welcome to Babies Baby Products Trading. By using this site, you agree to our terms.</p>
+
+        <p><strong>2. Orders</strong><br>
+        All items are subject to availability.</p>
+
+        <p><strong>3. User Responsibility</strong><br>
+        You agree to provide accurate information.</p>
+    </div>
+</div>
+
+<!-- PRIVACY MODAL -->
+<div id="privacyModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">✖</span>
+
+        <h2>Privacy Policy</h2>
+
+        <p>We collect basic information like name and email for order processing only.</p>
+        <p>We do not sell or share your data.</p>
+    </div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeContact()">✖</span>
+
+        <h2>Contact Us</h2>
+
+        <p>Send us a message:</p>
+
+        <form onsubmit="sendMessage(event)">
+            <input type="text" placeholder="Your Name" required style="width:100%;padding:10px;margin:5px 0;">
+            <input type="email" placeholder="Your Email" required style="width:100%;padding:10px;margin:5px 0;">
+            <textarea placeholder="Message" required style="width:100%;padding:10px;margin:5px 0;"></textarea>
+            <button style="padding:10px 15px;background:var(--pink);color:white;border:none;cursor:pointer;">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openModal(type) {
+    document.getElementById(type + "Modal").classList.add("show");
+}
+
+function closeModal() {
+    document.querySelectorAll(".modal").forEach(m => m.classList.remove("show"));
+}
+
+function openContact() {
+    document.getElementById("contactModal").classList.add("show");
+}
+
+function closeContact() {
+    document.getElementById("contactModal").classList.remove("show");
+}
+
+function sendMessage(e) {
+    e.preventDefault();
+    alert("Message sent!");
+    closeContact();
+}
+
+/* click outside closes modal */
+window.onclick = function(e) {
+    document.querySelectorAll(".modal").forEach(modal => {
+        if (e.target === modal) modal.classList.remove("show");
+    });
+};
+
+/* show terms once per session */
+document.addEventListener("DOMContentLoaded", () => {
+    if (!sessionStorage.getItem("seen")) {
+        openModal("terms");
+        sessionStorage.setItem("seen", "true");
+    }
+});
+</script>
+
+<!-- FLOATING CONTACT BUTTON -->
+<div class="contact-float" onclick="openContact()">
+    💬 Contact Us
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeContact()">✖</span>
+
+        <h2>Contact Us</h2>
+
+        <form id="floating-contact-form">
+            <input type="text" id="float-name" placeholder="Your Name" required style="width:100%;padding:10px;margin:5px 0;">
+            <input type="email" id="float-email" placeholder="Your Email" required style="width:100%;padding:10px;margin:5px 0;">
+            <textarea id="float-message" placeholder="Message" required style="width:100%;padding:10px;margin:5px 0;"></textarea>
+
+            <button type="submit" style="padding:10px 15px;background:#F973A9;color:white;border:none;cursor:pointer;">
+                Send
+            </button>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>

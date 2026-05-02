@@ -29,12 +29,10 @@ header {
 }
 
 .top-bar {
-    display: flex;
-    min-height: 42px;
-    padding: 10px 24px;
+    min-height: 16px;
+    padding: 0;
     align-items: center;
     justify-content: center;
-    text-align: center;
     background: linear-gradient(90deg, var(--primary-blue) 0%, #79dbdf 100%);
     color: #ffffff;
     font-size: 0.95rem;
@@ -43,7 +41,7 @@ header {
 }
 
 .navbar {
-    padding: 18px 28px;
+    padding: 12px 28px;
     border-bottom: 1px solid var(--border-soft);
     background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(14px);
@@ -92,7 +90,8 @@ header {
 
 .nav-auth-btn,
 .account-btn,
-.my-bag {
+.my-bag,
+.wishlist {
     border: 0;
     border-radius: 999px;
     padding: 11px 18px;
@@ -107,14 +106,16 @@ header {
     color: var(--dark-blue);
 }
 
-.my-bag {
+.my-bag,
+.wishlist {
     background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
     color: #ffffff;
 }
 
 .nav-auth-btn:hover,
 .account-btn:hover,
-.my-bag:hover {
+.my-bag:hover,
+.wishlist:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-soft);
 }
@@ -166,8 +167,7 @@ header {
 .form-container,
 .map-container,
 .about-us,
-.contact-header,
-.site-footer {
+.contact-header {
     border-radius: 24px;
 }
 
@@ -218,12 +218,16 @@ header {
 }
 
 .site-footer {
-    margin: 36px 28px 28px;
-    padding: 28px;
+    margin: 40px 0 0 0;
+    padding: 30px 20px;
     background: linear-gradient(135deg, #dff7fb 0%, #ffeef5 100%);
-    border: 1px solid var(--border-soft);
+    border-top: 1px solid var(--border-soft);
     color: var(--dark-blue);
-    box-shadow: var(--shadow-soft);
+    box-shadow: 0 -10px 40px rgba(27, 58, 87, 0.05);
+    text-align: center;
+    border-radius: 32px 32px 0 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .site-footer h3 {
@@ -272,24 +276,66 @@ header {
     border-color: rgba(249, 115, 169, 0.5);
 }
 
+.copy-id-btn {
+    background: var(--light-blue);
+    border: 1px solid var(--primary-blue);
+    border-radius: 6px;
+    padding: 4px 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--dark-blue);
+    position: relative;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-id-btn:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.copy-id-btn::after {
+    content: "copy order ID";
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(27, 58, 87, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+    font-family: 'Arial', sans-serif;
+    font-weight: normal;
+}
+
+.copy-id-btn:hover::after {
+    opacity: 1;
+}
+
 @media (max-width: 768px) {
     header {
         position: static;
     }
 
     .top-bar {
-        min-height: auto;
+        min-height: 12px;
         text-align: center;
         font-size: 0.85rem;
     }
 
     .navbar {
-        padding: 16px;
+        padding: 12px 16px;
     }
 
     .hero,
-    .shop-banner,
-    .site-footer {
+    .shop-banner {
         width: calc(100% - 24px);
         margin-left: 12px;
         margin-right: 12px;
@@ -311,8 +357,117 @@ header {
     }
 
     .site-footer {
-        margin-top: 24px;
-        margin-bottom: 16px;
-        padding: 22px 18px;
+        margin: 30px 0 0 0;
+        border-radius: 24px 24px 0 0;
+        padding: 24px 18px;
     }
+}
+
+.tracking-timeline {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    margin-top: 15px;
+}
+
+.tracking-timeline::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    width: 80%;
+    height: 4px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.step {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    flex: 1;
+    color: var(--text-muted);
+}
+
+.step-icon {
+    width: 44px;
+    height: 44px;
+    background: #ffffff;
+    border: 3px solid #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-icon {
+    border-color: var(--primary-blue);
+    background: var(--light-blue);
+}
+
+.step.active p {
+    color: var(--dark-blue);
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .step p {
+        font-size: 12px;
+    }
+    .step-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
+    }
+    .tracking-timeline::before {
+        top: 16px;
+    }
+}
+
+/* ================= FLOATING CONTACT BUTTON ================= */
+.contact-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #F973A9;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 9999;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background: white;
+    margin: 80px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 450px;
+    border-radius: 10px;
+}
+
+.close-modal {
+    float: right;
+    cursor: pointer;
+    font-size: 18px;
+    color: #F973A9;
 }

@@ -15,17 +15,16 @@
 
 html, body {
     height: 100%;
+    overflow: hidden;
 }
 
 body {
     background-color: #f8f8f8;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
 }
 
-header {
-    width: 100%;
+header, .site-footer {
     flex-shrink: 0;
 }
 
@@ -33,7 +32,7 @@ header {
     display: flex;
     justify-content: space-between;
     background-color: var(--primary-blue);
-    padding: 10px 20px;
+    min-height: 16px;
 }
 
 .navbar {
@@ -41,7 +40,7 @@ header {
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    padding: 15px 20px;
+    padding: 10px 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -56,23 +55,10 @@ header {
     color: var(--pink);
 }
 
-.logo-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-}
-
-.nav-buttons-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-}
-
 .nav-links {
     list-style: none;
     display: flex;
     gap: 20px;
-    justify-content: center;
 }
 
 .nav-links li a {
@@ -81,76 +67,38 @@ header {
     font-weight: bold;
 }
 
-.nav-buttons {
-    display: flex;
-    gap: 15px;
-}
-
-.wishlist, .my-bag {
-    background: none;
-    border: 2px dashed black;
-    padding: 8px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
 .hero {
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    min-height: calc(100vh - 80px);
+    justify-content: center;
+    gap: 80px;
     width: 100vw;
     background-color: #f0f0f0;
-    padding: 50px;
+    padding: 20px 50px;
     position: relative;
-}
-
-.hero-image {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
 }
 
 .hero-image img {
     max-width: 100%;
-    width: 100%;
+    max-height: 70vh;
     border-radius: 10px;
+    object-fit: contain;
 }
 
 .hero-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    text-align: left;
-    max-width: 600px;
-}
-
-.text-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    text-align: center;
 }
 
 .bird-icon {
-    width: 100px;
-    height: auto;
+    width: 130px;
+    margin-bottom: 15px;
 }
 
 .blue-box, .yellow-box {
-    padding: 10px 25px;
-    font-size: clamp(24px, 4vw, 48px);
-    white-space: nowrap;
+    padding: 14px 35px;
+    font-size: clamp(32px, 5vw, 64px);
     font-weight: bold;
-    text-align: center;
-    display: inline-block;
 }
 
 .blue-box {
@@ -163,29 +111,7 @@ header {
     color: black;
 }
 
-.hero-circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.circle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.7;
-}
-
-.circle1 { width: 80px; height: 80px; background-color: #ff5c8a; top: 20%; left: 10%; }
-.circle2 { width: 50px; height: 50px; background-color: #fdbf47; bottom: 15%; right: 25%; }
-.circle3 { width: 60px; height: 60px; background-color: #a0f2b3; top: 60%; left: 15%; }
-.circle4 { width: 40px; height: 40px; background-color: #e2a9f2; bottom: 30%; right: 5%; }
-.circle5 { width: 70px; height: 70px; background-color: #ffcccc; top: 10%; right: 10%; }
-.circle6 { width: 55px; height: 55px; background-color: #cce0ff; top: 25%; right: 5%; }
-.circle7 { width: 40px; height: 40px; background-color: #fffacd; top: 5%; right: 25%; }
-
+/* ===== SIDEBAR ===== */
 .sidebar {
     position: fixed;
     top: 0;
@@ -196,8 +122,6 @@ header {
     box-shadow: -5px 0 10px rgba(0, 0, 0, 0.2);
     transition: right 0.3s ease-in-out;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
     z-index: 1000;
 }
 
@@ -205,84 +129,129 @@ header {
     right: 0;
 }
 
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+/* ================================================= */
+/* 🔥 NEW: FOOTER */
+/* ================================================= */
+
+.site-footer {
+    background: var(--dark-blue);
+    color: white;
+    text-align: center;
+    padding: 20px;
 }
 
-.sidebar-header h2 {
-    font-size: 22px;
+.footer-links {
+    margin-top: 10px;
+}
+
+.footer-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 8px;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* ================================================= */
+/* 🔥 NEW: MODAL */
+/* ================================================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 9999;
+    overflow-y: auto;
+}
+
+.modal.show {
+    display: block;
+}
+.modal-content {
+    background: white;
+    margin: 60px auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+
+    border-top: 6px solid var(--primary-blue);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+
+    animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal h2 {
     color: var(--dark-blue);
+    margin-bottom: 10px;
 }
 
-.close-btn {
-    background: none;
-    border: none;
+.modal p {
+    margin-bottom: 12px;
+    color: #444;
+    line-height: 1.5;
+}
+
+.close-modal {
+    float: right;
     font-size: 20px;
     cursor: pointer;
     color: var(--pink);
 }
 
-.sidebar-content {
-    flex-grow: 1;
-    overflow-y: auto;
-}
+/* ================================================= */
+/* 📱 RESPONSIVE */
+/* ================================================= */
 
 @media (max-width: 768px) {
-    body {
-        overflow-y: auto; 
-    }
-
     .navbar {
         flex-direction: column;
         gap: 10px;
-        padding: 10px;
-    }
-
-    .nav-links {
-        gap: 10px;
-        font-size: 14px;
     }
 
     .hero {
-        flex-direction: column; 
-        height: auto;
-        min-height: 100vh;
-        padding: 40px 20px;
-        justify-content: center;
-    }
-
-    .hero-image {
-        width: 100%;
-        margin-bottom: 30px;
-    }
-
-    .hero-content {
-        width: 100%;
-        align-items: center; 
-        text-align: center;
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
     }
 
     .blue-box, .yellow-box {
-        font-size: 28px; 
-        white-space: normal; 
+        font-size: 32px;
         width: 90%;
-        margin: 5px auto;
-        padding: 10px;
     }
 
     .bird-icon {
-        width: 60px;
-    }
-
-    .circle {
-        display: none; 
+        width: 80px;
     }
 
     .sidebar {
-        width: 85%; 
+        width: 85%;
         right: -100%;
     }
+
+    .modal {
+    display: none;
 }
+
+.modal.show {
+    display: block;
+}
+
+    
+}
+

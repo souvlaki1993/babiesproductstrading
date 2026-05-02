@@ -105,7 +105,7 @@ function saveStoredOrders(orders) {
 }
 
 function formatCurrency(amount) {
-    return `P${Number(amount || 0).toFixed(2)}`;
+    return `₱${Number(amount || 0).toFixed(2)}`;
 }
 
 function formatOrderDate(dateValue) {
@@ -156,12 +156,18 @@ function renderOrders() {
                     </div>
                 `)
                 .join('');
+            
+            const orderId = order.orderId || 'BBPT-' + new Date(order.datePlaced).getTime().toString().slice(-5);
 
             return `
                 <div class="order-card">
                     <div class="order-card-header">
                         <div>
-                            <h3>${order.customerName}</h3>
+                            <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 5px;">
+                                Order: ${orderId}
+                                <button class="copy-id-btn" onclick="copyOrderId('${orderId}')" title="Copy Order ID">📋</button>
+                            </h3>
+                            <div class="order-meta">Customer: ${order.customerName}</div>
                             <div class="order-meta">Date: ${formatOrderDate(order.datePlaced)}</div>
                             <div class="order-meta">Payment: ${order.paymentMethod}</div>
                         </div>
@@ -183,6 +189,19 @@ function openTerms(event) {
 function closeTerms() {
     const modal = document.getElementById('termsModal');
     if (modal) modal.classList.remove('show');
+}
+
+function openModal(type) {
+    if (type === "terms") {
+        document.getElementById("termsModal").classList.add("show");
+    } else {
+        document.getElementById("privacyModal").classList.add("show");
+    }
+}
+
+function closeModal() {
+    document.getElementById("termsModal").classList.remove("show");
+    document.getElementById("privacyModal").classList.remove("show");
 }
 
 function acceptTerms() {
@@ -359,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const orders = getStoredOrders();
         orders.push({
+            orderId: 'BBPT-' + Math.floor(10000 + Math.random() * 90000),
             customerName: document.getElementById('fname')?.value.trim() || 'Customer',
             customerEmail: checkoutEmail || getCurrentUserEmail(),
             shippingAddress: document.getElementById('address')?.value.trim() || '',
@@ -405,7 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const sizes = this.dataset.sizes || "Standard";
             const imgSrc = this.querySelector('img').src;
 
-            let price = "P0.00";
+            let price = "₱0.00";
             const priceElement = this.querySelector('.product-price');
             if (priceElement) {
                 price = priceElement.textContent;
@@ -597,6 +617,67 @@ document.addEventListener('DOMContentLoaded', function () {
         if (totalElement) totalElement.textContent = formatCurrency(subtotal + shippingFee);
     }
 
+
+    function closeTerms() {
+    document.getElementById("termsModal").classList.remove("show");
+}
+
     updateCart();
     renderOrders();
+});
+
+// ================= EMAILJS INIT =================
+emailjs.init("TxkX1hCSfmYPbG8-s");
+
+// ================= OPEN / CLOSE MODAL =================
+function openContact() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.add("show");
+}
+
+function closeContact() {
+    const modal = document.getElementById("contactModal");
+    if (modal) modal.classList.remove("show");
+}
+
+// ================= EMAIL SEND =================
+document.addEventListener("DOMContentLoaded", function () {
+
+    const form = document.getElementById("floating-contact-form");
+
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const params = {
+                name: document.getElementById("float-name").value,
+                email: document.getElementById("float-email").value,
+                message: document.getElementById("float-message").value
+            };
+
+            emailjs.send(
+                "service_2uf2eb8",
+                "template_e4cij3j",
+                params
+            )
+            .then(() => {
+                alert("Message sent successfully!");
+                form.reset();
+                closeContact();
+            })
+            .catch((err) => {
+                console.log(err);
+                alert("Failed to send message.");
+            });
+        });
+    }
+
+});
+
+// ================= CLOSE ON OUTSIDE CLICK =================
+window.addEventListener("click", function (e) {
+    const modal = document.getElementById("contactModal");
+    if (modal && e.target === modal) {
+        modal.classList.remove("show");
+    }
 });
